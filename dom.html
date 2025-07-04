@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        background-color: rgb(49, 30, 52);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        flex-direction: column;
+      }
+
+      .hienthi {
+        display: flex;
+        gap: 20px;
+      }
+
+      .control button[type="button"] {
+        width: 50px;
+        height: 40px;
+        transition: all 0.2s ease;
+        border-radius: 2px;
+        border-style: none;
+        outline: unset;
+        margin: 5px;
+      }
+
+      .control button:nth-child(1):hover {
+        background-color: rgb(51, 153, 66);
+        border-style: none;
+        outline: unset;
+
+      }
+
+      .control button:nth-child(2):hover {
+        background-color: rgb(153, 51, 119);
+        border-style: none;
+        outline: unset;
+      }
+
+      .control button:nth-child(3):hover {
+        background-color: rgb(228, 35, 35);
+        border-style: none;
+        outline: unset;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hienthi">
+      <h1 id="gio">00</h1>
+      <h1 id="phut">00</h1>
+      <h1 id="giay">00</h1>
+    </div>
+    <div class="control">
+      <button type="button">start</button>
+      <button type="button">stop</button>
+      <button type="button">reset</button>
+    </div>
+
+    <script>
+      // lấy giờ phút giây
+      let gio = document.getElementById("gio");
+      let phut = document.getElementById("phut");
+      let giay = document.getElementById("giay");
+
+      // lấy nút bấm
+      let start = document.getElementsByTagName("button")[0];
+      let stop = document.getElementsByTagName("button")[1];
+      let reset = document.getElementsByTagName("button")[2];
+
+      // luu bien gio phut giay
+      let h = 0,
+        m = 0,
+        s = 0;
+
+      // lay bo dem
+      let count;
+
+      // cap nhat giao dien
+      function updateDisplay() {
+        gio.textContent = h.toString().padStart(2, "0");
+        phut.textContent = m.toString().padStart(2, "0");
+        giay.textContent = s.toString().padStart(2, "0");
+      }
+      // su lu xu kien
+      start.addEventListener("click", () => {
+        if (count) return;
+
+        count = setInterval(
+          () => {
+            s++;
+            if (s === 60) {
+              phut++;
+            }
+
+            if (m === 60) {
+              gio++;
+            }
+
+            updateDisplay();
+          },
+
+          1000
+        );
+      });
+
+      stop.addEventListener("click", () => {
+        clearInterval(count);
+        count = null;
+      });
+
+      reset.addEventListener("click", () => {
+        clearInterval(count);
+        count = 0;
+        h = m = s = 0;
+        updateDisplay();
+      });
+    </script>
+  </body>
+</html>
